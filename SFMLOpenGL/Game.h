@@ -8,8 +8,6 @@
 
 
 using namespace std;
-using namespace sf;
-using namespace gpp;
 
 class Game
 {
@@ -17,8 +15,10 @@ public:
 	Game();
 	~Game();
 	void run();
+	void setup();
+	void controlCube();
 private:
-	Window window;
+	sf::Window window;
 	bool isRunning = false;
 	void initialize();
 	void update();
@@ -26,8 +26,10 @@ private:
 	void unload();
 
 	GLuint index;
-	Clock clock;
-	Time elapsed;
+	sf::Clock clock;
+	sf::Time elapsed;
 
 	float rotationAngle = 0.0f;
+
+	Vector3 m_points[8];
 };

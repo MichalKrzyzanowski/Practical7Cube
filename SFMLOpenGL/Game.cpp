@@ -2,9 +2,21 @@
 
 bool updatable = false;
 
-gpp::Vector3 v3;
 
-Game::Game() : window(VideoMode(800, 600), "OpenGL Cube")
+Game::Game() : window(sf::VideoMode(800, 600), "OpenGL Cube"),
+m_points
+{
+	{ -1.0f, 1.0f, 1.0f },
+	{ 1.0f, 1.0f, 1.0f },
+	{ -1.0f, -1.0f, 1.0f },
+	{ 1.0f, -1.0f, 1.0f },
+
+	{ -1.0f, 1.0f, -1.0f },
+	{ 1.0f, 1.0f, -1.0f },
+	{ -1.0f, -1.0f, -1.0f },
+	{ 1.0f, -1.0f, -1.0f },
+}
+
 {
 	index = glGenLists(1);
 }
@@ -13,18 +25,20 @@ Game::~Game(){}
 
 void Game::run()
 {
-
 	initialize();
+	
+	
 
-	Event event;
+	sf::Event event;
 
-	while (isRunning){
-
+	while (isRunning)
+	{
+		
 		cout << "Game running..." << endl;
 
 		while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			if (event.type == sf::Event::Closed)
 			{
 				isRunning = false;
 			}
@@ -33,6 +47,181 @@ void Game::run()
 		draw();
 	}
 
+}
+
+void Game::setup()
+{
+	glNewList(index, GL_COMPILE);
+	glBegin(GL_TRIANGLES);
+	{
+		//Front Face
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3 
+
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3
+		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
+
+
+
+		// top face
+		glColor3f(0.0f, 1.0f, 1.0f);
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+
+
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+
+		// bottom face
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z);// 7
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
+
+		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
+		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+
+		// left face
+		glColor3f(1.0f, 0.0f, 1.0f);
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+
+		// right face
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+
+		//Back Face
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+
+		//Complete the faces of the Cube
+	}
+	glEnd();
+	glEndList();
+}
+
+void Game::controlCube()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::RotationX(rotationAngle) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::RotationX(-rotationAngle) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::RotationY(rotationAngle) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::RotationY(-rotationAngle) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::RotationZ(rotationAngle) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::RotationZ(-rotationAngle) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::Translate(0, -1) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::Translate(0, 1) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::Translate(-1, 0) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::Translate(1, 0) * m_points[i];
+		}
+	}
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::Scale(101.0, 101.0) * m_points[i];
+		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_points[i] = Matrix3::Scale(99.0, 99.0) * m_points[i];
+		}
+	}
 }
 
 void Game::initialize()
@@ -49,79 +238,12 @@ void Game::initialize()
 	// Creates a new Display List
 	// Initalizes and Compiled to GPU
 	// https://www.opengl.org/sdk/docs/man2/xhtml/glNewList.xml
-	glNewList(index, GL_COMPILE);
-	glBegin(GL_TRIANGLES);
-	{
-		//Front Face
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex3f(v3.getX(), 1.0f, -5.0f); // 2
-		glVertex3f(-1.0f, 1.0f, -5.0f); // 1
-		glVertex3f(-1.0f, -1.0f, -5.0f); // 3 
-
-		glVertex3f(v3.getX(), 1.0f, -5.0f); // 2
-		glVertex3f(-1.0f, -1.0f, -5.0f); // 3
-		glVertex3f(1.0f, -1.0f, -5.0f); // 4
-		
-
-		// top face
-		glColor3f(1.0f, 1.0f, 0.0f);
-		glVertex3f(-1.0f, 1.0f, -15.0f); // 5
-		glVertex3f(1.0f, 1.0f, -15.0f); // 6
-		glVertex3f(v3.getX(), 1.0f, -5.0f); // 2
-
-
-		glVertex3f(v3.getX(), 1.0f, -5.0f); // 2
-		glVertex3f(-1.0f, 1.0f, -5.0f); // 1
-		glVertex3f(-1.0f, 1.0f, -15.0f); // 5
-
-		// bottom face
-		glColor3f(1.0f, 1.0f, 1.0f);
-		glVertex3f(-1.0f, -1.0f, -15.0f); // 7
-		glVertex3f(1.0f, -1.0f, -15.0f); // 8
-		glVertex3f(1.0f, -1.0f, -5.0f); // 4
-
-		glVertex3f(1.0f, -1.0f, -5.0f); // 4
-		glVertex3f(-1.0f, -1.0f, -5.0f); // 3
-		glVertex3f(-1.0f, -1.0f, -15.0f); // 7
-
-		// left face
-		glColor3f(1.0f, 0.0f, 1.0f);
-		glVertex3f(-1.0f, 1.0f, -5.0f); // 1
-		glVertex3f(-1.0f, 1.0f, -15.0f); // 5
-		glVertex3f(-1.0f, -1.0f, -15.0f); // 7
-
-		glVertex3f(-1.0f, -1.0f, -15.0f); // 7
-		glVertex3f(-1.0f, -1.0f, -5.0f); // 3
-		glVertex3f(-1.0f, 1.0f, -5.0f); // 1
-
-		// right face
-		glColor3f(0.0f, 1.0f, 1.0f);
-		glVertex3f(v3.getX(), 1.0f, -5.0f); // 2
-		glVertex3f(1.0f, 1.0f, -15.0f); // 6
-		glVertex3f(1.0f, -1.0f, -15.0f); // 8
-
-		glVertex3f(1.0f, -1.0f, -15.0f); // 8
-		glVertex3f(1.0f, -1.0f, -5.0f); // 4
-		glVertex3f(v3.getX(), 1.0f, -5.0f); // 2
-
-		//Back Face
-		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(1.0f, 1.0f, -15.0f); // 6
-		glVertex3f(-1.0f, 1.0f, -15.0f); // 5
-		glVertex3f(-1.0f, -1.0f, -15.0f); // 7
-
-		glVertex3f(-1.0f, -1.0f, -15.0f); // 7
-		glVertex3f(1.0f, -1.0f, -15.0f); // 8
-		glVertex3f(1.0f, 1.0f, -15.0f); // 6
-
-		//Complete the faces of the Cube
-	}
-	glEnd();
-	glEndList();
+	setup();
 }
 
 void Game::update()
 {
+	setup();
 	elapsed = clock.getElapsedTime();
 
 	if (elapsed.asSeconds() >= 1.0f)
@@ -136,16 +258,12 @@ void Game::update()
 			updatable = false;
 	}
 
-	if (updatable)
-	{
-		rotationAngle += 0.005f;
-
-		if (rotationAngle > 360.0f)
-		{
-			rotationAngle -= 360.0f;
-		}
-	}
+	//glNewList(index, GL_COMPILE);
 	
+	rotationAngle = 0.5f;
+	
+	controlCube();
+
 	cout << "Update up" << endl;
 }
 
@@ -157,7 +275,8 @@ void Game::draw()
 
 	cout << "Drawing Cube " << endl;
 	glLoadIdentity();
-	glRotatef(rotationAngle, 0, 0, 1); // Rotates the camera on Y Axis
+	//glRotatef(rotationAngle, 0, 0, 1); // Rotates the camera on Y Axis
+	glTranslatef(0.0f, 0.0f, -8.0f);
 
 	glCallList(1);
 
