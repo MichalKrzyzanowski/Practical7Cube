@@ -54,8 +54,54 @@ void Game::setup()
 	glNewList(index, GL_COMPILE);
 	glBegin(GL_TRIANGLES);
 	{
+		
+
+		// top face
+		glColor3f(0.0f, 1.0f, 1.0f); // cyan
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+
+
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+
+		// right face
+		glColor3f(1.0f, 1.0f, 1.0f); // white
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
+		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
+
+
+		//Back Face
+		glColor3f(1.0f, 1.0f, 0.0f); // yellow
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
+		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
+
+
+		// left face
+		glColor3f(1.0f, 0.0f, 1.0f); // magenta
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+
+		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
+		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3
+		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
+
+
 		//Front Face
-		glColor3f(0.0f, 0.0f, 1.0f);
+		glColor3f(0.0f, 0.0f, 1.0f); // blue
 		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
 		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
 		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3 
@@ -65,20 +111,8 @@ void Game::setup()
 		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
 
 
-
-		// top face
-		glColor3f(0.0f, 1.0f, 1.0f);
-		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
-		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
-		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
-
-
-		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
-		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
-		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
-
 		// bottom face
-		glColor3f(1.0f, 1.0f, 0.0f);
+		glColor3f(1.0f, 0.0f, 0.0f); // red
 		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z);// 7
 		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
 		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
@@ -86,36 +120,6 @@ void Game::setup()
 		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
 		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3
 		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
-
-		// left face
-		glColor3f(1.0f, 0.0f, 1.0f);
-		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
-		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
-		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
-
-		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
-		glVertex3f(m_points[2].X, m_points[2].Y, m_points[2].Z); // 3
-		glVertex3f(m_points[0].X, m_points[0].Y, m_points[0].Z); // 1
-
-		// right face
-		glColor3f(1.0f, 1.0f, 1.0f);
-		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
-		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
-		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
-
-		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
-		glVertex3f(m_points[3].X, m_points[3].Y, m_points[3].Z); // 4
-		glVertex3f(m_points[1].X, m_points[1].Y, m_points[1].Z); // 2
-
-		//Back Face
-		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
-		glVertex3f(m_points[4].X, m_points[4].Y, m_points[4].Z); // 5
-		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
-
-		glVertex3f(m_points[6].X, m_points[6].Y, m_points[6].Z); // 7
-		glVertex3f(m_points[7].X, m_points[7].Y, m_points[7].Z); // 8
-		glVertex3f(m_points[5].X, m_points[5].Y, m_points[5].Z); // 6
 
 		//Complete the faces of the Cube
 	}
@@ -233,6 +237,9 @@ void Game::initialize()
 	glLoadIdentity();
 	gluPerspective(45.0, window.getSize().x / window.getSize().y, 1.0, 500.0);
 	glMatrixMode(GL_MODELVIEW);
+
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
 
 	// glNewList(index, GL_COMPILE);
 	// Creates a new Display List
