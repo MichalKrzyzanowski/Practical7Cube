@@ -161,7 +161,6 @@ void Game::controlCube()
 		}
 	}
 
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
 	{
 		for (int i = 0; i < 8; i++)
@@ -215,7 +214,7 @@ void Game::controlCube()
 	{
 		for (int i = 0; i < 8; i++)
 		{
-			m_points[i] = Matrix3::Scale(101.0, 101.0) * m_points[i];
+			m_points[i] = Matrix3::Scale3D(101.0) * m_points[i];
 		}
 	}
 
@@ -223,7 +222,7 @@ void Game::controlCube()
 	{
 		for (int i = 0; i < 8; i++)
 		{
-			m_points[i] = Matrix3::Scale(99.0, 99.0) * m_points[i];
+			m_points[i] = Matrix3::Scale3D(99.0) * m_points[i];
 		}
 	}
 }
